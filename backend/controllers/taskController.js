@@ -17,6 +17,19 @@ const createTask = async (req, res) => {
             user: req.user.id,
         });
 
+        const existingTask = await Task.findOne({
+            goal: goalId,
+            user: req.user.id,
+            title: title.trim(),
+        });
+
+        if (existingTask) {
+            return res.status(409).json({
+                message: "This task already exists.",
+                task: existingTask,
+            });
+        }
+
         if (!goal) {
             return res.status(404).json({
                 message: "Goal not found.",

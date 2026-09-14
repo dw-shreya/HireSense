@@ -27,6 +27,11 @@ const goalSchema = new mongoose.Schema(
             },
         ],
 
+        roadmap: {
+            type: mongoose.Schema.Types.Mixed,
+            default: null,
+        },
+
         progress: {
             type: Number,
             default: 0,

@@ -24,7 +24,7 @@ function ResumeDetails() {
             const token = localStorage.getItem("token");
 
             await API.delete(
-                `/resume/${id}`,
+                `/resumes/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ function ResumeDetails() {
                 const token = localStorage.getItem("token");
 
                 const response = await API.get(
-                    `/resume/${id}`,
+                    `/resumes/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

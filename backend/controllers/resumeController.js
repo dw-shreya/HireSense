@@ -225,6 +225,106 @@ const getResumeById = async (req, res) => {
     }
 };
 
+const compareResumes = async (req, res) => {
+    try {
+        const { previousId, latestId } = req.query;
+
+        if (!previousId || !latestId) {
+            return res.status(400).json({
+                message: "Both previous and latest resume IDs are required.",
+            });
+        }
+
+        if (
+            !mongoose.Types.ObjectId.isValid(previousId) ||
+            !mongoose.Types.ObjectId.isValid(latestId)
+        ) {
+            return res.status(400).json({
+                message: "Invalid resume ID.",
+            });
+        }
+
+        const resumes = await Resume.find({
+            _id: { $in: [previousId, latestId] },
+            user: req.user.id,
+        });
+
+        const previousResume = resumes.find(
+            (resume) => resume._id.toString() === previousId
+        );
+
+        const latestResume = resumes.find(
+            (resume) => resume._id.toString() === latestId
+        );
+
+        if (!previousResume || !latestResume) {
+            return res.status(404).json({
+                message: "One or both resumes were not found.",
+            });
+        }
+
+        const previousSkills = previousResume.skills || [];
+        const latestSkills = latestResume.skills || [];
+
+        const newSkills = latestSkills.filter(
+            (skill) =>
+                !previousSkills.some(
+                    (previousSkill) =>
+                        previousSkill.toLowerCase() ===
+                        skill.toLowerCase()
+                )
+        );
+
+        const removedSkills = previousSkills.filter(
+            (skill) =>
+                !latestSkills.some(
+                    (latestSkill) =>
+                        latestSkill.toLowerCase() ===
+                        skill.toLowerCase()
+                )
+        );
+
+        const atsImprovement =
+            latestResume.atsScore - previousResume.atsScore;
+
+        res.status(200).json({
+            comparison: {
+                previous: {
+                    id: previousResume._id,
+                    fileName: previousResume.fileName,
+                    atsScore: previousResume.atsScore,
+                    skills: previousResume.skills,
+                    missingSkills: previousResume.missingSkills,
+                },
+
+                latest: {
+                    id: latestResume._id,
+                    fileName: latestResume.fileName,
+                    atsScore: latestResume.atsScore,
+                    skills: latestResume.skills,
+                    missingSkills: latestResume.missingSkills,
+                },
+
+                changes: {
+                    atsImprovement,
+                    newSkills,
+                    removedSkills,
+                    missingSkillsReduced:
+                        previousResume.missingSkills.length -
+                        latestResume.missingSkills.length,
+                },
+            },
+        });
+
+    } catch (error) {
+        console.error("Compare Resumes Error:", error);
+
+        res.status(500).json({
+            message: "Failed to compare resumes.",
+        });
+    }
+};
+
 const deleteResume = async (req, res) => {
     try {
 
@@ -265,5 +365,6 @@ module.exports = {
     analyzeResume,
     getResumeHistory,
     getResumeById,
+    compareResumes,
     deleteResume,
 };

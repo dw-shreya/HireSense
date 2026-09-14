@@ -325,6 +325,9 @@ const generateGoalRoadmap = async (req, res) => {
             skillGaps,
         });
 
+        goal.roadmap = roadmap;
+        await goal.save();
+
         res.status(200).json({
             message: "Roadmap generated successfully.",
             roadmap,

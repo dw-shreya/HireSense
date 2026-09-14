@@ -6,6 +6,7 @@ const {
     analyzeResume,
     getResumeHistory,
     getResumeById,
+    compareResumes,
     deleteResume,
 } = require("../controllers/resumeController");
 
@@ -47,6 +48,8 @@ router.get(
     protect,
     getResumeHistory
 );
+
+router.get("/compare", protect, compareResumes);
 
 router.get(
     "/:id",
