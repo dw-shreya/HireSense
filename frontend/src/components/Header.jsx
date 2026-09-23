@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
     Brain,
     BarChart3,
@@ -8,8 +9,38 @@ import {
 } from "lucide-react";
 
 const Header = () => {
+
+    const navigate = useNavigate();
+
     return (
         <header className="hero-section">
+
+            {/* ========================= */}
+            {/* AUTH ACTIONS */}
+            {/* ========================= */}
+
+            <div className="hero-auth-actions">
+
+                <button
+                    className="hero-login-btn"
+                    onClick={() => navigate("/login")}
+                >
+                    Login
+                </button>
+
+                <button
+                    className="hero-signup-btn"
+                    onClick={() => navigate("/signup")}
+                >
+                    Get Started
+                </button>
+
+            </div>
+
+
+            {/* ========================= */}
+            {/* HERO CONTENT */}
+            {/* ========================= */}
 
             <div className="hero-badge">
                 <Sparkles size={16} />
@@ -29,6 +60,7 @@ const Header = () => {
             </p>
 
             <div className="hero-actions">
+
                 <button
                     className="hero-primary-btn"
                     onClick={() =>
@@ -55,6 +87,7 @@ const Header = () => {
                     See How It Works
                     <ArrowDown size={17} />
                 </button>
+
             </div>
 
             <div className="hero-features">

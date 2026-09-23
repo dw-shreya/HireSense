@@ -13597,3 +13597,128 @@ body {
         height: 34px;
     }
 }
+
+/* =========================================================
+   LANDING PAGE — HERO AUTH ACTIONS
+   ========================================================= */
+
+.hero-auth-actions {
+    position: absolute;
+
+    top: 24px;
+    right: max(24px, calc((100% - 1200px) / 2));
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    z-index: 5;
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN
+   --------------------------------------------------------- */
+
+.hero-login-btn {
+    height: 38px;
+
+    padding: 0 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    color: #475569;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.hero-login-btn:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    color: #1e293b;
+
+    transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   GET STARTED
+   --------------------------------------------------------- */
+
+.hero-signup-btn {
+    height: 38px;
+
+    padding: 0 16px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+    border-radius: 9px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.16);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.hero-signup-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.2);
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 650px) {
+
+    .hero-auth-actions {
+        top: 18px;
+        right: 16px;
+
+        gap: 7px;
+    }
+
+    .hero-login-btn,
+    .hero-signup-btn {
+        height: 34px;
+
+        padding: 0 11px;
+
+        font-size: 10px;
+    }
+}
