@@ -6,11 +6,11 @@ import ResultSection from "../components/ResultSection";
 import LoadingAI from "../components/LoadingAI";
 import Navbar from "../components/Navbar";
 
-import DashboardOverview from "../components/dashboard/DashboardOverview";
-import CareerGoals from "../components/dashboard/CareerGoals";
-import LearningProgress from "../components/dashboard/LearningProgress";
-import ATSProgress from "../components/dashboard/ATSProgress";
-import SkillGaps from "../components/dashboard/SkillGaps";
+import DashboardOverview from "../components/Dashboard/DashboardOverview";
+import CareerGoals from "../components/Dashboard/CareerGoals";
+import LearningProgress from "../components/Dashboard/LearningProgress";
+import ATSProgress from "../components/Dashboard/ATSProgress";
+import SkillGaps from "../components/Dashboard/SkillGaps";
 
 
 function Dashboard() {
