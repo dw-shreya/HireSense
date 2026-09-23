@@ -1,3 +1,9 @@
+import {
+    BookOpen,
+    CheckCircle2,
+    ListChecks,
+} from "lucide-react";
+
 function LearningProgress({ dashboardData }) {
 
     const totalTasks = dashboardData?.totalTasks || 0;
@@ -8,70 +14,122 @@ function LearningProgress({ dashboardData }) {
     return (
         <div className="learning-progress">
 
-            <h3>
-                Learning Progress
-            </h3>
+            <div className="learning-header">
 
-            <p>
-                Track how much of your learning plan
-                you have completed.
-            </p>
+                <div>
+
+                    <div className="dashboard-card-title">
+
+                        <div className="dashboard-small-icon dashboard-icon-teal">
+                            <BookOpen size={18} />
+                        </div>
+
+                        <h3>
+                            Learning Progress
+                        </h3>
+
+                    </div>
+
+                    <p>
+                        Track how much of your learning plan
+                        you have completed.
+                    </p>
+
+                </div>
+
+            </div>
 
 
             {/* Task Summary */}
 
             <div className="learning-summary">
 
-                <div>
-                    <span>
-                        Total Tasks
-                    </span>
+                <div className="learning-stat">
 
-                    <strong>
-                        {totalTasks}
-                    </strong>
+                    <div className="learning-stat-icon">
+                        <ListChecks size={17} />
+                    </div>
+
+                    <div>
+                        <span>
+                            Total Tasks
+                        </span>
+
+                        <strong>
+                            {totalTasks}
+                        </strong>
+                    </div>
+
                 </div>
 
 
-                <div>
-                    <span>
-                        Completed
-                    </span>
+                <div className="learning-stat">
 
-                    <strong>
-                        {completedTasks}
-                    </strong>
+                    <div className="learning-stat-icon learning-stat-icon-green">
+                        <CheckCircle2 size={17} />
+                    </div>
+
+                    <div>
+                        <span>
+                            Completed
+                        </span>
+
+                        <strong>
+                            {completedTasks}
+                        </strong>
+                    </div>
+
                 </div>
 
 
-                <div>
+                <div className="learning-stat learning-rate">
+
+                    <div>
+                        <span>
+                            Completion Rate
+                        </span>
+
+                        <strong>
+                            {completionRate}%
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {/* Progress */}
+
+            <div className="learning-progress-container">
+
+                <div className="learning-progress-label">
+
                     <span>
-                        Completion Rate
+                        Overall Progress
                     </span>
 
                     <strong>
                         {completionRate}%
                     </strong>
+
+                </div>
+
+                <div className="learning-progress-bar">
+
+                    <div
+                        className="learning-progress-fill"
+                        style={{
+                            width: `${completionRate}%`,
+                        }}
+                    />
+
                 </div>
 
             </div>
 
 
-            {/* Progress Bar */}
-
-            <div className="learning-progress-bar">
-
-                <div
-                    className="learning-progress-fill"
-                    style={{
-                        width: `${completionRate}%`,
-                    }}
-                />
-
-            </div>
-
-
-            <p>
+            <p className="learning-completion-text">
                 {completedTasks} of {totalTasks} tasks completed
             </p>
 

@@ -1,6 +1,17 @@
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import {
+    Target,
+    CheckCircle2,
+    ArrowLeft,
+    ArrowRight,
+    AlertTriangle,
+    Route,
+    ListChecks,
+    Plus,
+    Sparkles,
+} from "lucide-react";
+
 import API from "../services/api";
 import Navbar from "../components/Navbar";
 import Roadmap from "../components/Dashboard/goals/Roadmap";
@@ -45,7 +56,10 @@ function GoalDetails() {
                 },
             };
 
-            // Get goals
+            // =========================
+            // GET GOAL
+            // =========================
+
             const goalsResponse = await API.get(
                 "/goals",
                 config
@@ -53,7 +67,9 @@ function GoalDetails() {
 
             const foundGoal =
                 goalsResponse.data.goals.find(
-                    (item) => item._id === id || item.id === id
+                    (item) =>
+                        item._id === id ||
+                        item.id === id
                 );
 
             if (!foundGoal) {
@@ -61,35 +77,47 @@ function GoalDetails() {
                 return;
             }
 
-            console.log("Goal from API:", foundGoal);
+            console.log(
+                "Goal from API:",
+                foundGoal
+            );
 
             setGoal(foundGoal);
 
+            // =========================
+            // LOAD SAVED ROADMAP
+            // =========================
+
             if (foundGoal.roadmap?.roadmap) {
-                setRoadmap(foundGoal.roadmap.roadmap);
+                setRoadmap(
+                    foundGoal.roadmap.roadmap
+                );
             }
 
             // =========================
             // GET SKILL GAPS
             // =========================
 
-            const skillGapResponse = await API.get(
-                `/goals/${id}/skill-gaps`,
-                config
-            );
+            const skillGapResponse =
+                await API.get(
+                    `/goals/${id}/skill-gaps`,
+                    config
+                );
 
             setSkillGaps(
-                skillGapResponse.data.skillGaps || []
+                skillGapResponse.data.skillGaps ||
+                []
             );
 
             // =========================
             // GET TASKS
             // =========================
 
-            const tasksResponse = await API.get(
-                `/tasks/${id}`,
-                config
-            );
+            const tasksResponse =
+                await API.get(
+                    `/tasks/${id}`,
+                    config
+                );
 
             setTasks(
                 tasksResponse.data.tasks || []
@@ -123,7 +151,8 @@ function GoalDetails() {
             setRoadmapLoading(true);
             setRoadmapError("");
 
-            const token = localStorage.getItem("token");
+            const token =
+                localStorage.getItem("token");
 
             const response = await API.post(
                 `/goals/${id}/generate-roadmap`,
@@ -141,7 +170,8 @@ function GoalDetails() {
             );
 
             setRoadmap(
-                response.data.roadmap?.roadmap || []
+                response.data.roadmap?.roadmap ||
+                []
             );
 
         } catch (error) {
@@ -167,7 +197,8 @@ function GoalDetails() {
         e.preventDefault();
 
         try {
-            const token = localStorage.getItem("token");
+            const token =
+                localStorage.getItem("token");
 
             const response = await API.post(
                 `/tasks/${id}`,
@@ -212,9 +243,13 @@ function GoalDetails() {
     // UPDATE TASK STATUS
     // =========================
 
-    const updateTaskStatus = async (taskId, status) => {
+    const updateTaskStatus = async (
+        taskId,
+        status
+    ) => {
         try {
-            const token = localStorage.getItem("token");
+            const token =
+                localStorage.getItem("token");
 
             const response = await API.patch(
                 `/tasks/${taskId}/status`,
@@ -241,7 +276,8 @@ function GoalDetails() {
                 progress:
                     response.data.goalProgress,
                 status:
-                    response.data.goalProgress === 100
+                    response.data.goalProgress ===
+                        100
                         ? "completed"
                         : "active",
             }));
@@ -268,10 +304,15 @@ function GoalDetails() {
             <>
                 <Navbar />
 
-                <div className="dashboard-page">
-                    <p>
-                        Loading goal...
-                    </p>
+                <div className="goal-details-page">
+                    <div className="goal-details-state">
+                        <div className="goal-state-spinner" />
+                        <h2>Loading goal...</h2>
+                        <p>
+                            Preparing your career
+                            progress.
+                        </p>
+                    </div>
                 </div>
             </>
         );
@@ -286,10 +327,28 @@ function GoalDetails() {
             <>
                 <Navbar />
 
-                <div className="dashboard-page">
-                    <p>
-                        {error}
-                    </p>
+                <div className="goal-details-page">
+                    <div className="goal-details-state goal-error-state">
+                        <AlertTriangle
+                            size={32}
+                        />
+
+                        <h2>
+                            Unable to load goal
+                        </h2>
+
+                        <p>{error}</p>
+
+                        <button
+                            className="goal-back-btn"
+                            onClick={() =>
+                                window.history.back()
+                            }
+                        >
+                            <ArrowLeft size={16} />
+                            Back
+                        </button>
+                    </div>
                 </div>
             </>
         );
@@ -303,21 +362,47 @@ function GoalDetails() {
         <>
             <Navbar />
 
-            <div className="dashboard-page">
+            <div className="goal-details-page">
 
                 {/* ========================= */}
                 {/* GOAL HEADER */}
                 {/* ========================= */}
 
-                <div className="dashboard-header">
-                    <div>
-                        <h1>
-                            {goal.title}
-                        </h1>
+                <div className="goal-details-header">
 
-                        <p>
-                            Target Role: {goal.targetRole}
-                        </p>
+                    <button
+                        className="goal-back-btn"
+                        onClick={() =>
+                            window.history.back()
+                        }
+                    >
+                        <ArrowLeft size={16} />
+                        Back
+                    </button>
+
+                    <div className="goal-details-title">
+
+                        <div className="goal-details-icon">
+                            <Target size={25} />
+                        </div>
+
+                        <div>
+                            <span className="goal-details-eyebrow">
+                                CAREER GOAL
+                            </span>
+
+                            <h1>
+                                {goal.title}
+                            </h1>
+
+                            <p>
+                                Target Role:{" "}
+                                <strong>
+                                    {goal.targetRole}
+                                </strong>
+                            </p>
+                        </div>
+
                     </div>
                 </div>
 
@@ -325,68 +410,153 @@ function GoalDetails() {
                 {/* GOAL PROGRESS */}
                 {/* ========================= */}
 
-                <div className="dashboard-section">
+                <div className="goal-progress-card">
 
-                    <h2>
-                        Goal Progress
-                    </h2>
+                    <div className="goal-progress-card-header">
 
-                    <strong>
-                        {goal.progress}%
-                    </strong>
+                        <div>
+                            <span>
+                                GOAL PROGRESS
+                            </span>
 
-                    <div className="goal-progress">
+                            <h2>
+                                {goal.progress === 100
+                                    ? "Goal completed!"
+                                    : "You're making progress"}
+                            </h2>
+                        </div>
+
+                        <div className="goal-progress-percentage">
+                            {goal.progress}%
+                        </div>
+
+                    </div>
+
+                    <div className="goal-details-progress">
+
                         <div
-                            className="goal-progress-fill"
+                            className="goal-details-progress-fill"
                             style={{
                                 width: `${goal.progress}%`,
                             }}
                         />
+
                     </div>
 
-                    <p>
-                        Status: {goal.status}
-                    </p>
+                    <div className="goal-progress-footer">
 
+                        <span>
+                            Keep completing tasks
+                            to move closer to
+                            your goal.
+                        </span>
+
+                        <span
+                            className={`goal-details-status goal-details-status-${goal.status}`}
+                        >
+                            {goal.status ===
+                                "completed" && (
+                                    <CheckCircle2
+                                        size={14}
+                                    />
+                                )}
+
+                            {goal.status}
+                        </span>
+
+                    </div>
                 </div>
 
                 {/* ========================= */}
                 {/* SKILL GAPS */}
                 {/* ========================= */}
 
-                <div className="dashboard-section">
+                <div className="goal-skill-section">
 
-                    <h2>
-                        Skill Gaps
-                    </h2>
+                    <div className="goal-section-heading">
+
+                        <div className="goal-section-icon goal-icon-amber">
+                            <AlertTriangle
+                                size={18}
+                            />
+                        </div>
+
+                        <div>
+                            <span>
+                                SKILL DEVELOPMENT
+                            </span>
+
+                            <h2>
+                                Skill Gaps
+                            </h2>
+
+                            <p>
+                                Focus on these skills
+                                to move closer to
+                                your target role.
+                            </p>
+                        </div>
+
+                    </div>
 
                     {skillGaps.length === 0 ? (
 
-                        <p>
-                            No skill gaps for this goal.
-                        </p>
+                        <div className="goal-empty-state">
+
+                            <CheckCircle2
+                                size={22}
+                            />
+
+                            <div>
+                                <strong>
+                                    No skill gaps found
+                                </strong>
+
+                                <p>
+                                    You're currently
+                                    aligned with the
+                                    skills required
+                                    for this goal.
+                                </p>
+                            </div>
+
+                        </div>
 
                     ) : (
 
-                        <div className="skill-gap-list">
+                        <div className="goal-skill-list">
 
                             {skillGaps.map(
                                 (skill, index) => (
 
                                     <div
                                         key={index}
-                                        className="skill-gap-item"
+                                        className="goal-skill-item"
                                     >
-                                        <span>
+
+                                        <span className="goal-skill-number">
+                                            {String(
+                                                index + 1
+                                            ).padStart(
+                                                2,
+                                                "0"
+                                            )}
+                                        </span>
+
+                                        <span className="goal-skill-name">
                                             {skill}
                                         </span>
-                                    </div>
 
+                                        <ArrowRight
+                                            size={16}
+                                            className="goal-skill-arrow"
+                                        />
+
+                                    </div>
                                 )
                             )}
 
                         </div>
-
                     )}
 
                 </div>
@@ -395,189 +565,317 @@ function GoalDetails() {
                 {/* AI ROADMAP */}
                 {/* ========================= */}
 
-                <div className="dashboard-section">
+                <div className="goal-roadmap-section">
 
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            gap: "20px",
-                        }}
-                    >
+                    <div className="goal-section-heading roadmap-heading">
+
+                        <div className="goal-section-icon goal-icon-blue">
+                            <Route size={18} />
+                        </div>
 
                         <div>
+                            <span>
+                                AI-POWERED LEARNING
+                            </span>
 
                             <h2>
-                                AI Career Roadmap
+                                Career Roadmap
                             </h2>
 
                             <p>
-                                Generate a personalized learning
-                                roadmap based on your target role
-                                and current skills.
+                                A personalized learning
+                                path based on your target
+                                role and current skills.
                             </p>
-
                         </div>
 
                         <button
+                            className="generate-roadmap-btn"
                             onClick={generateRoadmap}
                             disabled={roadmapLoading}
                         >
+                            <Sparkles size={15} />
+
                             {roadmapLoading
                                 ? "Generating..."
                                 : roadmap
                                     ? "Regenerate Roadmap"
-                                    : "Generate Roadmap"
-                            }
+                                    : "Generate Roadmap"}
                         </button>
 
                     </div>
 
-                    {/* ROADMAP ERROR */}
-
                     {roadmapError && (
-                        <p>
-                            {roadmapError}
-                        </p>
+                        <div className="goal-roadmap-error">
+                            <AlertTriangle
+                                size={16}
+                            />
+
+                            <span>
+                                {roadmapError}
+                            </span>
+                        </div>
                     )}
 
-                    {/* ROADMAP */}
+                    {roadmap &&
+                        roadmap.length > 0 && (
+                            <Roadmap
+                                roadmap={roadmap}
+                                goalId={id}
+                                onTaskAdded={(
+                                    newTask
+                                ) => {
+                                    setTasks(
+                                        (
+                                            prevTasks
+                                        ) => [
+                                                newTask,
+                                                ...prevTasks,
+                                            ]
+                                    );
+                                }}
+                            />
+                        )}
 
-                    {roadmap && roadmap.length > 0 && (
-                        <Roadmap
-                            roadmap={roadmap}
-                            goalId={id}
-                            onTaskAdded={(newTask) => {
-                                setTasks((prevTasks) => [
-                                    newTask,
-                                    ...prevTasks,
-                                ]);
-                            }}
-                        />
-                    )}
+                    {!roadmap &&
+                        !roadmapLoading && (
+                            <div className="goal-roadmap-empty">
 
-                    {/* ========================= */}
-                    {/* TASKS */}
-                    {/* ========================= */}
+                                <div className="goal-roadmap-empty-icon">
+                                    <Route
+                                        size={24}
+                                    />
+                                </div>
 
-                    <div className="dashboard-section">
+                                <h3>
+                                    Build your
+                                    personalized roadmap
+                                </h3>
 
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
+                                <p>
+                                    Let AI create a
+                                    practical learning
+                                    path based on your
+                                    current skills,
+                                    skill gaps, and
+                                    career goal.
+                                </p>
+
+                                <button
+                                    className="generate-roadmap-empty-btn"
+                                    onClick={
+                                        generateRoadmap
+                                    }
+                                >
+                                    <Sparkles
+                                        size={15}
+                                    />
+                                    Generate My Roadmap
+                                </button>
+
+                            </div>
+                        )}
+
+                </div>
+
+                {/* ========================= */}
+                {/* LEARNING TASKS */}
+                {/* ========================= */}
+
+                <div className="goal-tasks-section">
+
+                    <div className="goal-section-heading tasks-heading">
+
+                        <div className="goal-section-icon goal-icon-green">
+                            <ListChecks
+                                size={18}
+                            />
+                        </div>
+
+                        <div>
+                            <span>
+                                ACTION PLAN
+                            </span>
 
                             <h2>
                                 Learning Tasks
                             </h2>
 
+                            <p>
+                                Turn your roadmap into
+                                actionable tasks and
+                                track your progress.
+                            </p>
+                        </div>
+
+                        <button
+                            className="create-task-btn"
+                            onClick={() =>
+                                setShowTaskForm(
+                                    !showTaskForm
+                                )
+                            }
+                        >
+                            <Plus size={16} />
+
+                            {showTaskForm
+                                ? "Cancel"
+                                : "Create Task"}
+                        </button>
+
+                    </div>
+
+                    {/* ========================= */}
+                    {/* CREATE TASK FORM */}
+                    {/* ========================= */}
+
+                    {showTaskForm && (
+
+                        <form
+                            onSubmit={createTask}
+                            className="goal-task-form"
+                        >
+
+                            <div className="goal-form-field">
+
+                                <label>
+                                    Task Title
+                                </label>
+
+                                <input
+                                    type="text"
+                                    placeholder="e.g. Build a REST API"
+                                    value={
+                                        taskForm.title
+                                    }
+                                    onChange={(e) =>
+                                        setTaskForm({
+                                            ...taskForm,
+                                            title:
+                                                e.target
+                                                    .value,
+                                        })
+                                    }
+                                    required
+                                />
+
+                            </div>
+
+                            <div className="goal-form-field">
+
+                                <label>
+                                    Description
+                                </label>
+
+                                <textarea
+                                    placeholder="Describe what you want to accomplish..."
+                                    value={
+                                        taskForm.description
+                                    }
+                                    onChange={(e) =>
+                                        setTaskForm({
+                                            ...taskForm,
+                                            description:
+                                                e.target
+                                                    .value,
+                                        })
+                                    }
+                                />
+
+                            </div>
+
+                            <div className="goal-form-field">
+
+                                <label>
+                                    Skill
+                                </label>
+
+                                <input
+                                    type="text"
+                                    placeholder="e.g. Node.js"
+                                    value={
+                                        taskForm.skill
+                                    }
+                                    onChange={(e) =>
+                                        setTaskForm({
+                                            ...taskForm,
+                                            skill:
+                                                e.target
+                                                    .value,
+                                        })
+                                    }
+                                    required
+                                />
+
+                            </div>
+
                             <button
-                                onClick={() =>
-                                    setShowTaskForm(
-                                        !showTaskForm
-                                    )
-                                }
+                                type="submit"
+                                className="save-task-btn"
                             >
-                                {showTaskForm
-                                    ? "Cancel"
-                                    : "Create Task"
-                                }
+                                <CheckCircle2
+                                    size={16}
+                                />
+                                Create Task
                             </button>
+
+                        </form>
+                    )}
+
+                    {/* ========================= */}
+                    {/* TASK LIST */}
+                    {/* ========================= */}
+
+                    {tasks.length === 0 ? (
+
+                        <div className="goal-empty-state">
+
+                            <ListChecks
+                                size={22}
+                            />
+
+                            <div>
+                                <strong>
+                                    No learning tasks yet
+                                </strong>
+
+                                <p>
+                                    Create a task
+                                    manually or add
+                                    one from your AI
+                                    roadmap.
+                                </p>
+                            </div>
 
                         </div>
 
-                        {/* CREATE TASK FORM */}
+                    ) : (
 
-                        {showTaskForm && (
-                            <form
-                                onSubmit={createTask}
-                                style={{
-                                    marginTop: "20px",
-                                }}
-                            >
+                        <div className="goal-task-list">
 
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Task title"
-                                        value={
-                                            taskForm.title
-                                        }
-                                        onChange={(e) =>
-                                            setTaskForm({
-                                                ...taskForm,
-                                                title:
-                                                    e.target.value,
-                                            })
-                                        }
-                                        required
-                                    />
-                                </div>
+                            {tasks.map((task) => (
 
-                                <div>
-                                    <textarea
-                                        placeholder="Task description"
-                                        value={
-                                            taskForm.description
-                                        }
-                                        onChange={(e) =>
-                                            setTaskForm({
-                                                ...taskForm,
-                                                description:
-                                                    e.target.value,
-                                            })
-                                        }
-                                    />
-                                </div>
+                                <div
+                                    key={task._id}
+                                    className={`goal-task-card goal-task-${task.status}`}
+                                >
 
-                                <div>
-                                    <input
-                                        type="text"
-                                        placeholder="Skill"
-                                        value={
-                                            taskForm.skill
-                                        }
-                                        onChange={(e) =>
-                                            setTaskForm({
-                                                ...taskForm,
-                                                skill:
-                                                    e.target.value,
-                                            })
-                                        }
-                                        required
-                                    />
-                                </div>
+                                    <div className="goal-task-main">
 
-                                <button type="submit">
-                                    Create Task
-                                </button>
+                                        <div className="goal-task-check">
 
-                            </form>
-                        )}
+                                            {task.status ===
+                                                "completed" ? (
+                                                <CheckCircle2
+                                                    size={20}
+                                                />
+                                            ) : (
+                                                <div className="goal-task-circle" />
+                                            )}
 
-                        {/* TASK LIST */}
+                                        </div>
 
-                        {tasks.length === 0 ? (
-
-                            <p>
-                                No tasks created yet.
-                            </p>
-
-                        ) : (
-
-                            <div className="task-list">
-
-                                {tasks.map(
-                                    (task) => (
-
-                                        <div
-                                            key={task._id}
-                                            className="task-card"
-                                        >
+                                        <div className="goal-task-content">
 
                                             <h3>
                                                 {task.title}
@@ -591,56 +889,63 @@ function GoalDetails() {
                                                 </p>
                                             )}
 
-                                            <span>
+                                            <span className="goal-task-skill">
                                                 Skill:{" "}
                                                 {task.skill}
                                             </span>
 
-                                            <div className="task-status">
-
-                                                <span>
-                                                    Status:{" "}
-                                                    {task.status}
-                                                </span>
-
-                                                {task.status !== "in-progress" && (
-                                                    <button
-                                                        onClick={() =>
-                                                            updateTaskStatus(
-                                                                task._id,
-                                                                "in-progress"
-                                                            )
-                                                        }
-                                                    >
-                                                        In Progress
-                                                    </button>
-                                                )}
-
-                                                {task.status !== "completed" && (
-                                                    <button
-                                                        onClick={() =>
-                                                            updateTaskStatus(
-                                                                task._id,
-                                                                "completed"
-                                                            )
-                                                        }
-                                                    >
-                                                        Complete
-                                                    </button>
-                                                )}
-
-                                            </div>
-
                                         </div>
 
-                                    )
-                                )}
+                                    </div>
 
-                            </div>
+                                    <div className="goal-task-actions">
 
-                        )}
+                                        <span
+                                            className={`goal-task-status goal-task-status-${task.status}`}
+                                        >
+                                            {task.status}
+                                        </span>
 
-                    </div>
+                                        {task.status !==
+                                            "in-progress" && (
+                                                <button
+                                                    onClick={() =>
+                                                        updateTaskStatus(
+                                                            task._id,
+                                                            "in-progress"
+                                                        )
+                                                    }
+                                                    className="task-progress-btn"
+                                                >
+                                                    In Progress
+                                                </button>
+                                            )}
+
+                                        {task.status !==
+                                            "completed" && (
+                                                <button
+                                                    onClick={() =>
+                                                        updateTaskStatus(
+                                                            task._id,
+                                                            "completed"
+                                                        )
+                                                    }
+                                                    className="task-complete-btn"
+                                                >
+                                                    <CheckCircle2
+                                                        size={14}
+                                                    />
+                                                    Complete
+                                                </button>
+                                            )}
+
+                                    </div>
+
+                                </div>
+                            ))}
+
+                        </div>
+                    )}
 
                 </div>
 
@@ -650,4 +955,3 @@ function GoalDetails() {
 }
 
 export default GoalDetails;
-

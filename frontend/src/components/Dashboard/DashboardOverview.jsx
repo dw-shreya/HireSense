@@ -1,3 +1,11 @@
+import {
+    FileText,
+    Trophy,
+    BarChart3,
+    Activity,
+    TrendingUp,
+} from "lucide-react";
+
 function DashboardOverview({ dashboardData }) {
 
     return (
@@ -8,39 +16,73 @@ function DashboardOverview({ dashboardData }) {
             <div className="analytics-grid">
 
                 <div className="analytics-card">
-                    <span>Total Resumes</span>
+                    <div className="analytics-card-top">
+                        <div className="analytics-icon analytics-icon-blue">
+                            <FileText size={20} />
+                        </div>
+
+                        <span>Total Resumes</span>
+                    </div>
 
                     <strong>
                         {dashboardData.totalResumes}
                     </strong>
                 </div>
 
+
                 <div className="analytics-card">
-                    <span>Highest ATS</span>
+                    <div className="analytics-card-top">
+                        <div className="analytics-icon analytics-icon-amber">
+                            <Trophy size={20} />
+                        </div>
+
+                        <span>Highest ATS</span>
+                    </div>
 
                     <strong>
                         {dashboardData.highestATS}
                     </strong>
                 </div>
 
+
                 <div className="analytics-card">
-                    <span>Average ATS</span>
+                    <div className="analytics-card-top">
+                        <div className="analytics-icon analytics-icon-purple">
+                            <BarChart3 size={20} />
+                        </div>
+
+                        <span>Average ATS</span>
+                    </div>
 
                     <strong>
                         {dashboardData.averageATS}
                     </strong>
                 </div>
 
+
                 <div className="analytics-card">
-                    <span>Latest ATS</span>
+                    <div className="analytics-card-top">
+                        <div className="analytics-icon analytics-icon-teal">
+                            <Activity size={20} />
+                        </div>
+
+                        <span>Latest ATS</span>
+                    </div>
 
                     <strong>
                         {dashboardData.latestATS}
                     </strong>
                 </div>
 
-                <div className="analytics-card">
-                    <span>ATS Improvement</span>
+
+                <div className="analytics-card analytics-card-highlight">
+                    <div className="analytics-card-top">
+                        <div className="analytics-icon analytics-icon-blue">
+                            <TrendingUp size={20} />
+                        </div>
+
+                        <span>ATS Improvement</span>
+                    </div>
 
                     <strong>
                         {dashboardData.atsImprovement > 0

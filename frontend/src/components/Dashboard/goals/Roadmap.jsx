@@ -54,7 +54,10 @@ function Roadmap({ roadmap, goalId, onTaskAdded }) {
 
     return (
         <div className="roadmap-card">
-            <h2>AI Career Roadmap</h2>
+            <div className="roadmap-heading">
+                <h2>Your Personalized Learning Path</h2>
+                <span>Personalized learning path</span>
+            </div>
 
             {roadmap.map((phase) => (
                 <div

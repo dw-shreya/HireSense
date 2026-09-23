@@ -1,44 +1,83 @@
 import React from "react";
-import { Brain, BarChart3, Zap } from "lucide-react";
+import {
+    Brain,
+    BarChart3,
+    Target,
+    Sparkles,
+    ArrowDown,
+} from "lucide-react";
 
 const Header = () => {
-  return (
-    <div className="header">
-      <h1>HireSense</h1>
+    return (
+        <header className="hero-section">
 
-      <h2>Build Resumes That Recruiters Want to Read</h2>
+            <div className="hero-badge">
+                <Sparkles size={16} />
+                AI-Powered Career Development
+            </div>
 
-      <p>
-        Upload your resume and receive an instant ATS score, personalized AI
-        insights, skill gap analysis, and practical recommendations to
-        strengthen your resume for modern hiring systems.
-      </p>
+            <h1>
+                Your Career.
+                <br />
+                <span>Smarter.</span>
+            </h1>
 
-      <div className="hero-badges">
+            <p className="hero-description">
+                HireSense helps you understand your resume,
+                identify skill gaps, build career goals, and
+                create a personalized path toward your target role.
+            </p>
 
-        <div className="badge">
-          <Brain size={18} />
-          <span>AI Powered</span>
-        </div>
+            <div className="hero-actions">
+                <button
+                    className="hero-primary-btn"
+                    onClick={() =>
+                        document
+                            .getElementById("resume-analyzer")
+                            ?.scrollIntoView({
+                                behavior: "smooth",
+                            })
+                    }
+                >
+                    Analyze My Resume
+                </button>
 
-        <div className="badge">
-          <BarChart3 size={18} />
-          <span>ATS Score</span>
-        </div>
+                <button
+                    className="hero-secondary-btn"
+                    onClick={() =>
+                        document
+                            .getElementById("how-it-works")
+                            ?.scrollIntoView({
+                                behavior: "smooth",
+                            })
+                    }
+                >
+                    See How It Works
+                    <ArrowDown size={17} />
+                </button>
+            </div>
 
-        <div className="badge">
-          <Zap size={18} />
-          <span>Instant Analysis</span>
-        </div>
+            <div className="hero-features">
 
-        <p className="hero-note">
-          No signup required • Secure PDF processing • Instant AI feedback
-        </p>
+                <div className="hero-feature">
+                    <Brain size={18} />
+                    <span>AI Insights</span>
+                </div>
 
-      </div>
+                <div className="hero-feature">
+                    <BarChart3 size={18} />
+                    <span>ATS Analysis</span>
+                </div>
 
-    </div>
-  );
+                <div className="hero-feature">
+                    <Target size={18} />
+                    <span>Career Goals</span>
+                </div>
+
+            </div>
+
+        </header>
+    );
 };
 
 export default Header;

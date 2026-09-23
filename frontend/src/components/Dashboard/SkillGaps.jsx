@@ -1,3 +1,5 @@
+import { AlertTriangle, Target } from "lucide-react";
+
 function SkillGaps({ dashboardData }) {
 
     const skillGaps = dashboardData?.skillGaps || [];
@@ -5,21 +7,43 @@ function SkillGaps({ dashboardData }) {
     return (
         <div className="skill-gaps">
 
-            <h3>
-                Skill Gaps
-            </h3>
+            <div className="skill-gaps-header">
 
-            <p>
-                Skills that appear most frequently as gaps
-                across your resume analyses.
-            </p>
+                <div>
+
+                    <div className="dashboard-card-title">
+
+                        <div className="dashboard-small-icon dashboard-icon-amber">
+                            <AlertTriangle size={18} />
+                        </div>
+
+                        <h3>
+                            Skill Gaps
+                        </h3>
+
+                    </div>
+
+                    <p>
+                        Skills that appear most frequently as gaps
+                        across your resume analyses.
+                    </p>
+
+                </div>
+
+            </div>
 
 
             {skillGaps.length === 0 ? (
 
-                <p>
-                    No skill gaps found.
-                </p>
+                <div className="empty-dashboard-state">
+
+                    <Target size={28} />
+
+                    <p>
+                        No skill gaps found.
+                    </p>
+
+                </div>
 
             ) : (
 
@@ -33,18 +57,31 @@ function SkillGaps({ dashboardData }) {
                         const count =
                             skill.count || 0;
 
+                        const percentage =
+                            Math.min(count * 20, 100);
+
                         return (
 
                             <div
                                 className="skill-gap-item"
-                                key={skillName || index}
+                                key={
+                                    skillName || index
+                                }
                             >
 
                                 <div className="skill-gap-header">
 
-                                    <span>
-                                        {skillName}
-                                    </span>
+                                    <div className="skill-gap-name">
+
+                                        <span className="skill-rank">
+                                            {String(index + 1).padStart(2, "0")}
+                                        </span>
+
+                                        <span>
+                                            {skillName}
+                                        </span>
+
+                                    </div>
 
                                     <strong>
                                         {count}
@@ -58,18 +95,18 @@ function SkillGaps({ dashboardData }) {
                                     <div
                                         className="skill-gap-fill"
                                         style={{
-                                            width: `${Math.min(
-                                                count * 20,
-                                                100
-                                            )}%`,
+                                            width: `${percentage}%`,
                                         }}
                                     />
 
                                 </div>
 
+
                                 <small>
                                     Missing in {count} resume
-                                    {count !== 1 ? "s" : ""}
+                                    {count !== 1
+                                        ? "s"
+                                        : ""}
                                 </small>
 
                             </div>

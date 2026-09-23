@@ -88,70 +88,120 @@ const UploadSection = ({
     };
 
     return (
-        <div className="upload-section">
+        <div className="dashboard-upload">
 
-            <label htmlFor="resume-upload" className="upload-box">
+            <div className="dashboard-upload-card">
 
-                <div className="upload-icon">
-                    <Upload size={52} strokeWidth={2} />
+                <div className="dashboard-upload-header">
+
+                    <div className="dashboard-upload-icon">
+                        <Upload size={24} />
+                    </div>
+
+                    <div>
+                        <h3>Upload Resume</h3>
+
+                        <p>
+                            Drag & drop your latest resume or choose a PDF file to generate a fresh AI analysis.
+                        </p>
+                    </div>
+
                 </div>
 
-                <h3>Upload Your Resume</h3>
 
-                <p>
-                    Drag & drop your PDF here or click to browse
-                </p>
+                <label
+                    htmlFor="resume-upload"
+                    className="dashboard-dropzone"
+                >
 
-                <span className="browse-btn">
-                    Choose PDF
-                </span>
+                    <Upload size={42} />
 
-            </label>
+                    <h4>Drop your resume here</h4>
 
-            <input
-                id="resume-upload"
-                type="file"
-                accept=".pdf"
-                onChange={handleFileChange}
-                hidden
-            />
+                    <p>
+                        PDF only • Maximum 5 MB
+                    </p>
 
-            {resume && (
-                <div className="selected-file">
-                    ✅ {resume.name}
-                </div>
-            )}
+                    <span className="browse-btn">
+                        Browse Files
+                    </span>
 
-            <button
-                onClick={handleAnalyze}
-                disabled={!resume || loading}
-                className="analyze-btn"
-            >
-                {loading ? (
-                    <>
-                        <span className="spinner"></span>
-                        AI is analyzing your resume...
-                    </>
-                ) : (
-                    <>
-                        Analyze Resume
-                        <ArrowRight size={18} />
-                    </>
+                </label>
+
+
+                <input
+                    id="resume-upload"
+                    type="file"
+                    accept=".pdf"
+                    onChange={handleFileChange}
+                    hidden
+                />
+
+
+                {resume && (
+
+                    <div className="selected-file-card">
+
+                        <div>
+
+                            <strong>
+                                {resume.name}
+                            </strong>
+
+                            <p>
+                                Ready for analysis
+                            </p>
+
+                        </div>
+
+                        <span className="file-ready">
+                            PDF
+                        </span>
+
+                    </div>
+
                 )}
-            </button>
 
-            {loading && (
-                <div className="message info">
-                    🚀 If this is your first request, the AI server may take up to 60
-                    seconds to wake up.
-                </div>
-            )}
 
-            {message && (
-                <div className="message">
-                    {message}
-                </div>
-            )}
+                <button
+                    onClick={handleAnalyze}
+                    disabled={!resume || loading}
+                    className="analyze-btn"
+                >
+
+                    {loading ? (
+                        <>
+                            <span className="spinner"></span>
+                            AI is analyzing...
+                        </>
+                    ) : (
+                        <>
+                            Analyze Resume
+                            <ArrowRight size={18} />
+                        </>
+                    )}
+
+                </button>
+
+
+                {loading && (
+
+                    <div className="message info">
+
+                        🚀 First request? The AI server may take around 60 seconds to wake up.
+
+                    </div>
+
+                )}
+
+
+                {message && (
+                    <div className="message">
+                        {message}
+                    </div>
+                )}
+
+            </div>
 
         </div>
     );

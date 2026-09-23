@@ -1,43 +1,86 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+    Brain,
+    LayoutDashboard,
+    FileText,
+    LogOut,
+} from "lucide-react";
 
 function Navbar() {
-
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         navigate("/login");
     };
 
+    const isActive = (path) => {
+        return location.pathname === path;
+    };
+
     return (
         <nav className="navbar">
+
+            {/* ========================= */}
+            {/* LOGO */}
+            {/* ========================= */}
 
             <div
                 className="navbar-logo"
                 onClick={() => navigate("/dashboard")}
             >
-                HireSense
+                <div className="navbar-logo-icon">
+                    <Brain size={19} />
+                </div>
+
+                <span>HireSense</span>
             </div>
+
+            {/* ========================= */}
+            {/* NAVIGATION */}
+            {/* ========================= */}
 
             <div className="navbar-links">
 
                 <button
-                    onClick={() => navigate("/dashboard")}
+                    className={
+                        isActive("/dashboard")
+                            ? "navbar-link active"
+                            : "navbar-link"
+                    }
+                    onClick={() =>
+                        navigate("/dashboard")
+                    }
                 >
-                    Dashboard
+                    <LayoutDashboard size={16} />
+                    <span>Dashboard</span>
                 </button>
 
                 <button
-                    onClick={() => navigate("/history")}
+                    className={
+                        isActive("/history")
+                            ? "navbar-link active"
+                            : "navbar-link"
+                    }
+                    onClick={() =>
+                        navigate("/history")
+                    }
                 >
-                    Resume History
+                    <FileText size={16} />
+                    <span>Resume History</span>
                 </button>
 
+                {/* ========================= */}
+                {/* LOGOUT */}
+                {/* ========================= */}
+
                 <button
-                    className="logout-btn"
+                    className="navbar-logout"
                     onClick={handleLogout}
                 >
-                    Logout
+                    <LogOut size={15} />
+                    <span>Logout</span>
                 </button>
 
             </div>

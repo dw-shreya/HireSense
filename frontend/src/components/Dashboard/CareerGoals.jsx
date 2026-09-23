@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Target, CheckCircle2, ArrowRight } from "lucide-react";
 
 function CareerGoals({ dashboardData }) {
 
@@ -9,31 +10,54 @@ function CareerGoals({ dashboardData }) {
     return (
         <div className="career-goals">
 
-            <h3>Career Goals</h3>
+            <div className="career-goals-header">
 
-            <p>
-                Track your progress toward your target career.
-            </p>
+                <div>
+                    <div className="dashboard-card-title">
+                        <div className="dashboard-small-icon dashboard-icon-purple">
+                            <Target size={18} />
+                        </div>
 
-            <div className="goal-summary">
+                        <h3>Career Goals</h3>
+                    </div>
 
-                <span>
-                    Active Goals:{" "}
-                    {dashboardData?.activeGoals || 0}
-                </span>
+                    <p>
+                        Track your progress toward your target career.
+                    </p>
+                </div>
 
-                <span>
-                    Completed Goals:{" "}
-                    {dashboardData?.completedGoals || 0}
-                </span>
+                <div className="goal-summary">
+
+                    <span>
+                        Active
+                        <strong>
+                            {dashboardData?.activeGoals || 0}
+                        </strong>
+                    </span>
+
+                    <span>
+                        Completed
+                        <strong>
+                            {dashboardData?.completedGoals || 0}
+                        </strong>
+                    </span>
+
+                </div>
 
             </div>
 
+
             {goals.length === 0 ? (
 
-                <p>
-                    No career goals yet.
-                </p>
+                <div className="empty-dashboard-state">
+
+                    <Target size={28} />
+
+                    <p>
+                        No career goals yet.
+                    </p>
+
+                </div>
 
             ) : (
 
@@ -49,14 +73,26 @@ function CareerGoals({ dashboardData }) {
                             }
                         >
 
-                            <h3>
-                                {goal.title}
-                            </h3>
+                            <div className="goal-card-heading">
 
-                            <p>
-                                Target Role:{" "}
-                                {goal.targetRole}
-                            </p>
+                                <div>
+                                    <h3>
+                                        {goal.title}
+                                    </h3>
+
+                                    <p>
+                                        Target Role:{" "}
+                                        {goal.targetRole}
+                                    </p>
+                                </div>
+
+                                <ArrowRight
+                                    size={18}
+                                    className="goal-arrow"
+                                />
+
+                            </div>
+
 
                             <div className="goal-progress-header">
 
@@ -70,6 +106,7 @@ function CareerGoals({ dashboardData }) {
 
                             </div>
 
+
                             <div className="goal-progress">
 
                                 <div
@@ -82,9 +119,23 @@ function CareerGoals({ dashboardData }) {
 
                             </div>
 
-                            <span className="goal-status">
-                                {goal.status}
-                            </span>
+
+                            <div className="goal-card-footer">
+
+                                <span
+                                    className={`goal-status goal-status-${goal.status}`}
+                                >
+                                    {goal.status}
+                                </span>
+
+                                {goal.progress === 100 && (
+                                    <span className="goal-complete">
+                                        <CheckCircle2 size={15} />
+                                        Completed
+                                    </span>
+                                )}
+
+                            </div>
 
                         </div>
 

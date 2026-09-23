@@ -1,9 +1,15 @@
 import "../auth.css";
 import { useState } from "react";
+import { Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
 import API from "../services/api";
 
 function Signup() {
 
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
 
     const handleChange = (e) => {
         setFormData({
@@ -16,81 +22,216 @@ function Signup() {
         e.preventDefault();
 
         try {
-            const response = await API.post("/auth/signup", formData);
+            const response = await API.post(
+                "/auth/signup",
+                formData
+            );
 
             alert("Account created successfully!");
             console.log(response.data);
 
         } catch (error) {
-            console.error(error.response?.data || error.message);
+            console.error(
+                error.response?.data || error.message
+            );
         }
     };
 
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-
     return (
-        <div className="auth-container">
-            <div className="auth-card">
+        <div className="auth-page">
 
-                <h1>HireSense</h1>
-                <h2>Create Account</h2>
+            {/* LEFT SIDE */}
 
-                <p>
-                    Create your HireSense account to save resume analyses and track your career growth.
-                </p>
+            <div className="auth-visual">
 
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Enter your name"
-                            value={formData.name}
-                            onChange={handleChange}
-                        />
+                <div className="auth-brand">
+
+                    <div className="auth-brand-icon">
+                        <Sparkles size={20} />
                     </div>
 
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <span>HireSense</span>
 
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            value={formData.password}
-                            onChange={handleChange}
-                        />
-                    </div>
+                </div>
 
-                    <button
-                        type="submit"
-                        className="auth-btn"
-                    >
-                        Sign Up
-                    </button>
 
-                </form>
+                <div className="auth-visual-content">
 
-                <p className="auth-link">
-                    Already have an account? <a href="/login">Login</a>
-                </p>
+                    <span className="auth-eyebrow">
+                        START YOUR JOURNEY
+                    </span>
+
+                    <h1>
+                        Your career
+                        <br />
+                        <span>starts here.</span>
+                    </h1>
+
+                    <p>
+                        Build a stronger professional profile,
+                        discover the skills you need, and turn
+                        your career goals into measurable progress.
+                    </p>
+
+                </div>
+
+
+                <div className="auth-visual-footer">
+
+                    <span>AI Resume Analysis</span>
+                    <span>•</span>
+                    <span>Skill Gap Detection</span>
+                    <span>•</span>
+                    <span>Career Roadmaps</span>
+
+                </div>
 
             </div>
+
+
+            {/* RIGHT SIDE */}
+
+            <div className="auth-form-section">
+
+                <div className="auth-form-wrapper">
+
+                    <div className="auth-mobile-brand">
+
+                        <div className="auth-brand-icon">
+                            <Sparkles size={18} />
+                        </div>
+
+                        <span>HireSense</span>
+
+                    </div>
+
+
+                    <div className="auth-heading">
+
+                        <span className="auth-welcome">
+                            GET STARTED
+                        </span>
+
+                        <h2>Create your account</h2>
+
+                        <p>
+                            Start building your path toward career growth.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        onSubmit={handleSubmit}
+                        className="auth-form"
+                    >
+
+                        {/* NAME */}
+
+                        <div className="form-group">
+
+                            <label htmlFor="name">
+                                Name
+                            </label>
+
+                            <div className="input-wrapper">
+
+                                <User size={18} />
+
+                                <input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Enter your name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+
+                        {/* EMAIL */}
+
+                        <div className="form-group">
+
+                            <label htmlFor="email">
+                                Email
+                            </label>
+
+                            <div className="input-wrapper">
+
+                                <Mail size={18} />
+
+                                <input
+                                    id="email"
+                                    type="email"
+                                    name="email"
+                                    placeholder="you@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+
+                        {/* PASSWORD */}
+
+                        <div className="form-group">
+
+                            <label htmlFor="password">
+                                Password
+                            </label>
+
+                            <div className="input-wrapper">
+
+                                <Lock size={18} />
+
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    placeholder="Create a password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            className="auth-btn"
+                        >
+                            <span>Create Account</span>
+                            <ArrowRight size={18} />
+                        </button>
+
+                    </form>
+
+
+                    <p className="auth-switch">
+
+                        Already have an account?
+
+                        <a href="/login">
+                            Sign in
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
     );
 }
