@@ -4826,32 +4826,54 @@ body {
 
 
 .goal-back-btn {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
 
-    margin-bottom: 25px;
-    padding: 0;
+    position: relative !important;
 
-    border: none;
-    background: transparent;
+    width: auto !important;
+    min-width: 76px;
+    height: 42px;
 
-    color: #64748b;
+    padding: 0 14px !important;
+    margin: 0;
 
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 650;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+
+    background: #f8fbff;
+    color: #2563eb;
+
+    font-size: 14px;
+    font-weight: 600;
 
     cursor: pointer;
+    box-sizing: border-box;
 
-    transition:
-        color .2s ease,
-        transform .2s ease;
+    overflow: visible !important;
+}
+
+.goal-back-btn svg {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+
+    width: 16px !important;
+    height: 16px !important;
+
+    flex-shrink: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
 }
 
 .goal-back-btn:hover {
-    color: #2563eb;
-    transform: translateX(-3px);
+    background: #eff6ff;
+    border-color: #93c5fd;
+    transform: translateX(-2px);
 }
 
 
@@ -13722,3 +13744,158 @@ body {
         font-size: 10px;
     }
 }
+
+.dashboard-analyze-btn {
+    height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.dashboard-analyze-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+}
+
+@media (max-width: 650px) {
+    .dashboard-header {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .dashboard-analyze-btn {
+        height: 38px;
+        padding: 0 13px;
+        font-size: 11px;
+    }
+}
+
+/* ================================
+   CREATE GOAL
+================================ */
+
+.career-goals-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.create-goal-btn {
+    height: 38px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.create-goal-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.2);
+}
+
+.create-goal-form {
+    margin-top: 20px;
+    padding: 22px;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    background: #fafbff;
+}
+
+.create-goal-form h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    color: #111827;
+}
+
+.create-goal-form input {
+    width: 100%;
+    height: 42px;
+    margin-bottom: 12px;
+    padding: 0 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: white;
+    color: #111827;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.create-goal-form input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+.create-goal-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.create-goal-form-actions button {
+    height: 38px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.create-goal-form-actions button[type="submit"] {
+    background: #4f46e5;
+    color: white;
+}
+
+.create-goal-form-actions button[type="button"] {
+    background: #eef0f4;
+    color: #374151;
+}
+
+.create-goal-form-actions button:hover {
+    transform: translateY(-1px);
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+
+    .career-goals-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .create-goal-btn {
+        height: 36px;
+        padding: 0 12px;
+        font-size: 11px;
+    }
+
+    .create-goal-form {
+        padding: 17px;
+    }
+
+    .create-goal-form-actions {
+        width: 100%;
+    }
+
+    .create-goal-form-actions button {
+        flex: 1;
+    }
+}
+

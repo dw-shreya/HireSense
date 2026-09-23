@@ -88,8 +88,10 @@ const UploadSection = ({
     };
 
     return (
-        <div className="dashboard-upload">
-
+        <div
+            id="resume-analyzer"
+            className="dashboard-upload"
+        >
             <div className="dashboard-upload-card">
 
                 <div className="dashboard-upload-header">

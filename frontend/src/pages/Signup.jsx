@@ -1,9 +1,12 @@
 import "../auth.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
 import API from "../services/api";
 
 function Signup() {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         name: "",
@@ -28,8 +31,8 @@ function Signup() {
             );
 
             alert("Account created successfully!");
-            console.log(response.data);
-
+            navigate("/login");
+            
         } catch (error) {
             console.error(
                 error.response?.data || error.message

@@ -90,7 +90,6 @@ function Dashboard() {
                 <div className="dashboard-header">
 
                     <div>
-
                         <h1>
                             Dashboard
                         </h1>
@@ -99,8 +98,22 @@ function Dashboard() {
                             Track your resume performance and
                             improve your career profile.
                         </p>
-
                     </div>
+
+                    <button
+                        className="dashboard-analyze-btn"
+                        onClick={() =>
+                            document
+                                .getElementById("resume-analyzer")
+                                ?.scrollIntoView({
+                                    behavior: "smooth",
+                                })
+                        }
+                    >
+                        ✨ {dashboardData.totalResumes === 0
+                            ? "Analyze Your First Resume"
+                            : "Analyze New Resume"}
+                    </button>
 
                 </div>
 
