@@ -8,7 +8,7 @@ An AI-powered Resume Analyzer that evaluates resumes, generates ATS compatibilit
 
 ## 🌐 Live Demo
 
-** Try HireSense:** hire-sense-v2.vercel.app
+** Try HireSense:** hire-sense-v2.vercel.app  
 
 > **Note:** The backend is hosted on Render's free tier. The first request after inactivity may take up to 60 seconds while the server wakes up.
 
