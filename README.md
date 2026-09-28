@@ -431,31 +431,31 @@ HireSense implements several backend security mechanisms:
 
 ### Landing Page
 
-![Landing Page](Screenshots/landing.png)
+![Landing Page](Screenshots/first.png)
 
 ---
 
 ### Dashboard
 
-_Add dashboard screenshot here._
+![Dashboard Page](Screenshots/dashboard.png)
 
 ---
 
 ### Resume Analysis
 
-![Resume Analysis](Screenshots/results.png)
+![Resume Analysis](Screenshots/learning.png)
 
 ---
 
 ### Career Goals
 
-_Add Career Goals screenshot here._
+![Careers Page](Screenshots/career.png)
 
 ---
 
 ### AI Career Roadmap
 
-_Add AI Roadmap screenshot here._
+![Roadmap Page](Screenshots/roadmap.png)
 
 ---
 
